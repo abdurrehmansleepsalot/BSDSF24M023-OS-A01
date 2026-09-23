@@ -82,3 +82,25 @@ Yes — running `nm` on the `client_static` executable shows symbols for functio
 This proves static linking operates as a direct **"copy-and-paste"** mechanism. During compilation, the linker extracts the required machine code from the static library (`libmyutils.a`) and physically embeds it inside the final `client_static` executable.
 
 As a result, the final executable is **entirely self-contained** and will run independently — even if the original static library file is deleted or moved.
+## 4. Dynamic Libraries and Execution
+
+### Position-Independent Code (-fPIC)
+`-fPIC` stands for Position-Independent Code. It directs the compiler to generate machine code that executes correctly regardless of its absolute address in memory. 
+
+This is a fundamental requirement for shared libraries (`.so` files) because multiple different programs might load the exact same shared library simultaneously. If the library required a specific, fixed memory address, it would cause conflicts (address collisions) with other libraries or programs. `-fPIC` solves this by using relative addressing (offsets) instead of absolute memory addresses, allowing the operating system to safely load the library wherever there is free space in RAM.
+
+### File Size Comparison: Static vs. Dynamic
+When comparing the file sizes using `ls -lh`, the static client (`client_static`) is significantly larger than the dynamic client (`client_dynamic`). 
+
+This difference exists because of how the linker handles the code:
+*   **Static Linking:** Physically copies the compiled machine code for all used functions (like `mystrlen`) directly into the `client_static` executable. 
+*   **Dynamic Linking:** Does not copy the function code. Instead, it only embeds a lightweight reference (a stub) in the `client_dynamic` executable. The actual code remains inside the `libmyutils.so` file and is only loaded into memory when the program is actively running.
+
+### LD_LIBRARY_PATH and the Dynamic Loader
+`LD_LIBRARY_PATH` is a Linux environment variable that instructs the system's dynamic loader to search specific custom directories for shared libraries (`.so` files) before looking in the standard system directories (like `/usr/lib` or `/lib`).
+
+**Why it was necessary:**
+By default, the operating system has no idea that our custom `libmyutils.so` exists in our project's local `../lib` directory. Setting this variable temporarily points the loader to our local folder so it can find the required library to run the program.
+
+**What this tells us about the dynamic loader:**
+This demonstrates that the operating system's dynamic loader is actively responsible for locating, loading, and linking external dependencies into the program's memory *on the fly* at runtime. It also shows that the loader strictly adheres to predefined search paths for security and efficiency, requiring explicit instructions (like `LD_LIBRARY_PATH`) to trust and load libraries from non-standard locations.
