@@ -1,0 +1,9 @@
+.TH mygrep 3 "September 2026" "Version 1.0" "Library Functions"
+.SH NAME
+mygrep \- search for a string in a file
+.SH SYNOPSIS
+.B int mygrep(FILE *fp, const char *search_str, char ***matches);
+.SH DESCRIPTION
+The \fBmygrep\fR function scans the file \fBfp\fR line by line for occurrences of \fBsearch_str\fR. Matching lines are dynamically allocated and stored in an array of strings pointed to by \fBmatches\fR. It returns the total number of matches found, or -1 if any argument is NULL or memory allocation fails.
+.SH AUTHOR
+Written by Abdur Rehman

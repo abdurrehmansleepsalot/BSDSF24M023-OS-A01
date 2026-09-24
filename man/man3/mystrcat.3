@@ -1,0 +1,9 @@
+.TH mystrcat 3 "September 2026" "Version 1.0" "Library Functions"
+.SH NAME
+mystrcat \- concatenate two strings
+.SH SYNOPSIS
+.B int mystrcat(char *dest, const char *src);
+.SH DESCRIPTION
+The \fBmystrcat\fR function appends the \fBsrc\fR string to the \fBdest\fR string, overwriting the terminating null byte at the end of \fBdest\fR, and then adds a new terminating null byte. It returns 0 on success, or -1 if either pointer is NULL.
+.SH AUTHOR
+Written by Abdur Rehman

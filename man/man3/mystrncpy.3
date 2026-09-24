@@ -1,0 +1,9 @@
+.TH mystrncpy 3 "September 2026" "Version 1.0" "Library Functions"
+.SH NAME
+mystrncpy \- copy a fixed-size string
+.SH SYNOPSIS
+.B int mystrncpy(char *dest, const char *src, int n);
+.SH DESCRIPTION
+The \fBmystrncpy\fR function copies up to \fBn\fR characters from the string pointed to by \fBsrc\fR to the buffer pointed to by \fBdest\fR. If the length of \fBsrc\fR is less than \fBn\fR, the remainder of \fBdest\fR will be padded with null bytes. It returns 0 on success, or -1 if either pointer is NULL.
+.SH AUTHOR
+Written by Abdur Rehman

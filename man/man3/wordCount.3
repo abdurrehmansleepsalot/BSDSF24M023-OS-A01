@@ -1,0 +1,9 @@
+.TH wordCount 3 "September 2026" "Version 1.0" "Library Functions"
+.SH NAME
+wordCount \- count lines, words, and characters in a file
+.SH SYNOPSIS
+.B int wordCount(FILE *file, int *lines, int *words, int *chars);
+.SH DESCRIPTION
+The \fBwordCount\fR function reads the provided \fBfile\fR pointer character by character and calculates the total number of lines, words, and characters, storing the results in the respective integer pointers. It returns 0 on success, or -1 if the file pointer is NULL.
+.SH AUTHOR
+Written by Abdur Rehman
